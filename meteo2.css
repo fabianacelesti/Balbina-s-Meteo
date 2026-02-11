@@ -1,0 +1,644 @@
+/* =========================
+   RESET & BASE
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  background: #000;
+  min-height: 100vh;
+  color: #fff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================
+   VIDEO BACKGROUND
+========================= */
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.weather-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+/* =========================
+   WELCOME SCREEN
+========================= */
+.welcome-screen {
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  animation: fadeIn 0.6s ease;
+}
+
+.welcome-content {
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.app-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.app-name {
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.app-tagline {
+  font-size: 17px;
+  font-weight: 400;
+  opacity: 0.8;
+  margin-bottom: 40px;
+}
+
+.welcome-search {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  margin-bottom: 32px;
+  transition: all 0.3s ease;
+}
+
+.welcome-search:focus-within {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-search .search-icon {
+  color: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+}
+
+.welcome-search .search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.welcome-search .search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.quick-cities {
+  margin-top: 32px;
+}
+
+.quick-cities-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  opacity: 0.6;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.quick-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.quick-btn {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quick-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.quick-btn:active {
+  transform: translateY(0);
+}
+
+/* =========================
+   APP CONTAINER
+========================= */
+.app {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 60px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* =========================
+   SEARCH BAR
+========================= */
+.search-container {
+  width: 100%;
+  position: sticky;
+  top: 20px;
+  z-index: 100;
+}
+
+.search {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.search-icon {
+  color: rgba(255, 255, 255, 0.6);
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.search-input-top {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.search-input-top::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* =========================
+   WEATHER CARD
+========================= */
+.weather-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   LOCATION HEADER
+========================= */
+.location-header {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.location-label {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+  margin-bottom: 4px;
+}
+
+.location-name {
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+}
+
+/* =========================
+   TEMPERATURE DISPLAY
+========================= */
+.temp-display {
+  text-align: center;
+  padding: 0 20px;
+}
+
+.temp-main {
+  font-size: 96px;
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -2px;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.temp-condition {
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 8px;
+  opacity: 0.95;
+}
+
+.temp-range {
+  font-size: 17px;
+  font-weight: 500;
+  margin-top: 8px;
+  opacity: 0.8;
+  letter-spacing: 0.3px;
+}
+
+/* =========================
+   HOURLY SECTION
+========================= */
+.hourly-section {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.hourly-info {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.hourly-description {
+  font-size: 15px;
+  line-height: 1.4;
+  opacity: 0.9;
+}
+
+.hourly-forecast {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 8px 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hourly-forecast::-webkit-scrollbar {
+  display: none;
+}
+
+.hourly-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 60px;
+}
+
+.hourly-time {
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.hourly-icon {
+  font-size: 28px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.hourly-temp {
+  font-size: 19px;
+  font-weight: 500;
+}
+
+/* =========================
+   FORECAST SECTION
+========================= */
+.forecast-section {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.forecast-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  opacity: 0.6;
+  margin-bottom: 16px;
+}
+
+.forecast-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.forecast-day {
+  display: grid;
+  grid-template-columns: 80px 40px 1fr 60px;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.forecast-day:last-child {
+  border-bottom: none;
+}
+
+.forecast-day-name {
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.forecast-icon {
+  font-size: 24px;
+  text-align: center;
+}
+
+.forecast-bar {
+  height: 4px;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 200, 100, 0.8) 50%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  border-radius: 2px;
+  position: relative;
+}
+
+.forecast-temps {
+  display: flex;
+  justify-content: space-between;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.forecast-temp-low {
+  opacity: 0.6;
+}
+
+/* =========================
+   DETAILS GRID
+========================= */
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.detail-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.detail-card-wide {
+  grid-column: 1 / -1;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  opacity: 0.6;
+  margin-bottom: 12px;
+}
+
+.detail-header svg {
+  opacity: 0.7;
+}
+
+.detail-value {
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.detail-subtitle {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* SUN TIMES CARD */
+.sun-times {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.sun-time {
+  text-align: center;
+}
+
+.sun-label {
+  display: block;
+  font-size: 12px;
+  opacity: 0.6;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sun-time .detail-value {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.sun-arc {
+  position: relative;
+  height: 50px;
+}
+
+.arc-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.sun-position {
+  filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.6));
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* =========================
+   LOADING
+========================= */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 60px 20px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-container p {
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+/* =========================
+   ERROR
+========================= */
+.error-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.error-message {
+  background: rgba(255, 59, 48, 0.2);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 59, 48, 0.3);
+  color: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+/* =========================
+   UTILITIES
+========================= */
+.hidden {
+  display: none !important;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (min-width: 768px) {
+  .app {
+    padding-top: 80px;
+  }
+  
+  .details-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 375px) {
+  .temp-main {
+    font-size: 80px;
+  }
+  
+  .location-name {
+    font-size: 28px;
+  }
+}

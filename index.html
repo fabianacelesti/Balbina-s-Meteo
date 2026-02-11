@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meteo</title>
+  <link rel="stylesheet" href="meteo2.css">
+</head>
+<body>
+
+<!-- VIDEO BACKGROUND -->
+<div class="video-background">
+  <video class="weather-video" autoplay loop muted playsinline>
+    <source src="" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+</div>
+
+<main class="app">
+
+  <!-- WELCOME SCREEN -->
+  <div class="welcome-screen">
+    <div class="welcome-content">
+      <div class="app-icon">🌤️</div>
+      <h1 class="app-name">Meteo Balbi</h1>
+      <p class="app-tagline">Il meteo che cercavi, in stile</p>
+      
+      <div class="welcome-search">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2"/>
+          <path d="M12.5 12.5L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input type="text" class="search-input" placeholder="Cerca la tua città...">
+      </div>
+
+      <div class="quick-cities">
+        <p class="quick-cities-label">Città popolari</p>
+        <div class="quick-buttons">
+          <button class="quick-btn" data-city="Roma">Roma</button>
+          <button class="quick-btn" data-city="Milano">Milano</button>
+          <button class="quick-btn" data-city="Napoli">Napoli</button>
+          <button class="quick-btn" data-city="Firenze">Firenze</button>
+          <button class="quick-btn" data-city="Venezia">Venezia</button>
+          <button class="quick-btn" data-city="Torino">Torino</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEARCH BAR (appare dopo la ricerca) -->
+  <div class="search-container hidden">
+    <div class="search">
+      <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2"/>
+        <path d="M12.5 12.5L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <input type="text" class="search-input-top" placeholder="Cerca città">
+    </div>
+  </div>
+
+  <!-- WEATHER CARD -->
+  <section class="weather-card hidden">
+
+    <!-- LOCATION HEADER -->
+    <div class="location-header">
+      <p class="location-label">POSIZIONE ATTUALE</p>
+      <h1 class="location-name">Roma</h1>
+    </div>
+
+    <!-- MAIN TEMPERATURE -->
+    <div class="temp-display">
+      <p class="temp-main">18°</p>
+      <p class="temp-condition">Soleggiato</p>
+      <p class="temp-range">MAX: 26° MIN: 13°</p>
+    </div>
+
+    <!-- HOURLY FORECAST BAR -->
+    <div class="hourly-section">
+      <div class="hourly-info">
+        <p class="hourly-description">Soleggiato per tutto il giorno. Folate di vento fino a 8 km/h.</p>
+      </div>
+      <div class="hourly-forecast">
+        <!-- Generato da JS -->
+      </div>
+    </div>
+
+    <!-- 10 DAY FORECAST -->
+    <div class="forecast-section">
+      <div class="forecast-header">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M2 4h12v1H2V4zm0 3h12v1H2V7zm0 3h12v1H2v-1z"/>
+        </svg>
+        <span>PREVISIONI PER 10 GIORNI</span>
+      </div>
+      <div class="forecast-list">
+        <!-- Generato da JS -->
+      </div>
+    </div>
+
+    <!-- WEATHER DETAILS GRID -->
+    <div class="details-grid">
+      <!-- VENTO -->
+      <div class="detail-card">
+        <div class="detail-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/>
+          </svg>
+          <span>VENTO</span>
+        </div>
+        <p class="detail-value wind-speed">12 km/h</p>
+        <p class="detail-subtitle">Brezza leggera</p>
+      </div>
+
+      <!-- UMIDITÀ -->
+      <div class="detail-card">
+        <div class="detail-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+          </svg>
+          <span>UMIDITÀ</span>
+        </div>
+        <p class="detail-value humidity-value">60%</p>
+        <p class="detail-subtitle">Punto di rugiada 12°</p>
+      </div>
+
+      <!-- PERCEPITA -->
+      <div class="detail-card">
+        <div class="detail-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
+          </svg>
+          <span>PERCEPITA</span>
+        </div>
+        <p class="detail-value feels-value">20°</p>
+        <p class="detail-subtitle">Simile alla temperatura</p>
+      </div>
+
+      <!-- VISIBILITÀ -->
+      <div class="detail-card">
+        <div class="detail-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <span>VISIBILITÀ</span>
+        </div>
+        <p class="detail-value visibility-value">10 km</p>
+        <p class="detail-subtitle">Perfettamente sereno</p>
+      </div>
+
+      <!-- PRESSIONE -->
+      <div class="detail-card">
+        <div class="detail-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span>PRESSIONE</span>
+        </div>
+        <p class="detail-value pressure-value">1013 hPa</p>
+        <p class="detail-subtitle">Normale</p>
+      </div>
+
+      <!-- RAGGI UV -->
+      <div class="detail-card">
+        <div class="detail-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <span>RAGGI UV</span>
+        </div>
+        <p class="detail-value uv-value">5</p>
+        <p class="detail-subtitle uv-description">Moderato</p>
+      </div>
+
+      <!-- ALBA E TRAMONTO -->
+      <div class="detail-card detail-card-wide">
+        <div class="detail-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 18a5 5 0 0 0-10 0"/>
+            <line x1="12" y1="2" x2="12" y2="9"/>
+            <line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/>
+            <line x1="1" y1="18" x2="3" y2="18"/>
+            <line x1="21" y1="18" x2="23" y2="18"/>
+            <line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/>
+          </svg>
+          <span>ALBA E TRAMONTO</span>
+        </div>
+        <div class="sun-times">
+          <div class="sun-time">
+            <span class="sun-label">Alba</span>
+            <p class="detail-value sunrise-value">06:45</p>
+          </div>
+          <div class="sun-arc">
+            <svg viewBox="0 0 100 50" class="arc-svg">
+              <path d="M 10 45 Q 50 5, 90 45" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+              <circle class="sun-position" cx="50" cy="25" r="4" fill="#FFD700"/>
+            </svg>
+          </div>
+          <div class="sun-time">
+            <span class="sun-label">Tramonto</span>
+            <p class="detail-value sunset-value">18:30</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- LOADING -->
+  <div class="loading-container hidden">
+    <div class="loading-spinner"></div>
+    <p>Caricamento...</p>
+  </div>
+
+  <!-- ERROR -->
+  <div class="error-container hidden">
+    <p class="error-message">Città non trovata</p>
+  </div>
+
+</main>
+
+<script src="meteo2.js"></script>
+</body>
+</html>
